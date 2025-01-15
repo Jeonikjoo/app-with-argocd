@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: app-with-argocd-container
-        image: zza1541/app-with-argocd:f3423a1edbc4978396a6652dbb4ed467c157688d
+        image: zza1541/app-with-argocd:e10eea37db23d37bccce31ee2fa7d3524cc29583
         ports:
           - protocol: TCP
             containerPort: 8080
