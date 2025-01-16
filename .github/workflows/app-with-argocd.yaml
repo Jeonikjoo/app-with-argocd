@@ -2,7 +2,9 @@ name: App With Github Actions with ArgoCD
 
 on:
   # workflow_dispatch
-  push
+  push:
+    paths-ignore:
+      - 'manifest/**'
 
 jobs:
   ci:
@@ -10,6 +12,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+      with:
+          repository: Jeonikjoo/app-with-argocd-manifest
+          ref: main
+          token: ${{ secrets.TOKEN }}
       
     - name: Set up JDK 17
       uses: actions/setup-java@v4
@@ -58,12 +64,6 @@ jobs:
         push: true
         tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPOSITORY }}:${{ github.sha }}
     
-    - uses: actions/checkout@v4
-      with:
-          repository: Jeonikjoo/app-with-argocd-manifest
-          ref: main
-          token: ${{ secrets.TOKEN }}
-     
     - name: Set up Image
       run: |
         sed -i "s%image: ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPOSITORY }}:[A-z0-9]*%image: ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPOSITORY }}:${{ github.sha }}%" ./manifest/app-with-argocd-deployment.yaml
