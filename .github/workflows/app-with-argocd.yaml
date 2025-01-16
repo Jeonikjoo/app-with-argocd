@@ -13,7 +13,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
       with:
-          repository: Jeonikjoo/app-with-argocd-manifest
+          repository: Jeonikjoo/app-with-argocd
           ref: main
           token: ${{ secrets.TOKEN }}
       
